@@ -1,3 +1,17 @@
-<!DOCTYPE <!DOCTYPE html>
+<!DOCTYPE <!DOCTYPE html> <!-- aqui eu estou arrumando todo o layout da pagina--> <!-- AQUI E A RAIZ DO MEU PROJETO-->
+
 <html>
+    <!-- parte de cima do projeto-->
+    <head>
+        {% block style%}{% endblock %}
+        {% include "model-header.html" %}
+    </head>
+
+    <body>
+        <!-- parte de baixo do projeto-->
+        {% block content %} {% endblock %}
+        {% include "model-footer.html" %}
+    </body>
+<html>
+
     
