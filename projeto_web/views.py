@@ -4,12 +4,24 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required #para ele nao deixa o cara entrar na minha pagina sem estar logado
+from .models import Empresa
 
 # depois das url.py eu venho aqui ai depois eu crio a pagina em html
 @login_required(login_url='/login/')
-def index(request):
-    return render(request,'index.html')
-# este aqui e escrito para eu voltar a pagina inicial do meu sait
+
+def list_all_empresa(request):
+    empresa= Empresa.objects.filter(ativo=True)
+    return render(request,'list.html',{'empresa':empresa})
+
+def list_user_empresa(request):
+    empresa= Empresa.objects.filter(ativo=True, user=request.user)
+    return render(request,'list.html',{'empresa':empresa})
+
+def empresa_detail(request, id):
+    empresa=Empresa.objects.get(ativo=True, id=id)
+    print(empresa.id)
+    return render(request,'empresa.html',{'empresa':empresa})
+    
 def logout_user(request):
     print(request.user)
     logout(request)

@@ -7,7 +7,7 @@ class Empresa (models.Model):
     telefone = models.CharField( max_length=11)
     email = models.EmailField()
     data = models.DateTimeField(auto_now_add=True)
-    foto = models.ImageField()
+    foto = models.ImageField(upload_to='empresa')
     ativo = models.BooleanField(default=True)
     cnpj = models.CharField(max_length=14)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
