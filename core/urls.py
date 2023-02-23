@@ -15,6 +15,9 @@ urlpatterns = [
     path('login/',views.login_user),
     path('login/submit',views.submit_login),
     path('logout/',views.logout_user),
+    path('empresa/register/',views.register_empresa),
+    path('empresa/register/submit',views.set_empresa),
+    path('empresa/delete/<id>/',views.delete_empresa),
     path('',RedirectView.as_view(url='empresa/all/'))
 
 ]

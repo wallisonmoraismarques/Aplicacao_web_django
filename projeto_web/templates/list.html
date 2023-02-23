@@ -21,9 +21,9 @@
       <div class="row">
          {% for p in empresa %}
          <div class="col-sm-4">
-            <a href="../detail/{{p.id}}">
+            <a href="../detail/{{p.id}}"> <!-- ao clicar na foto aqui me manda para outra pagina-->
                <div class="polaroid">
-                   <img src="{{ p.foto.url }}"style ="width:100%">
+                   <img src="{{ p.foto.url}}"style ="width:100%">
                    <div class="container">
                        <p>{{p.cidade }} </p>
                    </div>

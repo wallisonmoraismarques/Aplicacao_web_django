@@ -8,7 +8,48 @@ from .models import Empresa
 
 # depois das url.py eu venho aqui ai depois eu crio a pagina em html
 @login_required(login_url='/login/')
+def register_empresa(request):
+    empresa_id = request.GET.get("id")
+    if empresa_id:
+        empresa = Empresa.objects.get(id=empresa_id)
+        if empresa.user == request.user:
+            return render(request,"register-empresa.html",{"empresa":empresa})
+    return render(request,"register-empresa.html")
 
+    return render(request,'register-empresa.html')
+
+@login_required(login_url='/login/')
+def set_empresa(request):
+    cidade = request.POST.get('cidade')
+    email = request.POST.get('email')
+    telefone = request.POST.get('telefone')
+    descrisao = request.POST.get('descrisao')
+    foto = request.FILES.get('file')
+    empresa_id = request.POST.get('empresa-id')
+    user = request.user
+    if empresa_id:
+        empresa = Empresa.objects.get(id=empresa_id)
+        if user == empresa.user:
+            empresa.email = email
+            empresa.cidade = cidade
+            empresa.telefone = telefone
+            empresa.descrisao = descrisao
+            if foto:
+                empresa.foto = foto
+            empresa.save()   
+    else:
+        empresa= Empresa.objects.create(email=email, telefone=telefone, descrisao=descrisao, foto=foto, user=user , cidade=cidade)
+        url= '/empresa/detail/{}/'.format(empresa.id)
+    return redirect(url)
+
+@login_required(login_url='/login/')
+def delete_empresa(request, id):
+    empresa=Empresa.objects.get(id=id)
+    if empresa.user == request.user :
+        empresa.delete()
+    return redirect('/')
+
+@login_required(login_url='/login/')
 def list_all_empresa(request):
     empresa= Empresa.objects.filter(ativo=True)
     return render(request,'list.html',{'empresa':empresa})
